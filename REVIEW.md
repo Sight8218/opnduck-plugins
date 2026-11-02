@@ -13,8 +13,8 @@ A review is a person reading the code, not a guarantee. A plugin can still have 
    - `exec:any`, `network` to wide host lists and `files:write` get extra attention.
 3. The backend and the card do nothing beyond what the description says:
    - no obfuscated or minified-only code, no `eval`/`new Function` on fetched text;
-   - no reaching for `window.opnduckHost` from a card (cards are not isolated; this is the one thing the
-     host cannot stop);
+   - cards run in a sandboxed frame with no network, but still look for attempts to break out of it
+     (odd `postMessage` use, `eval`, navigating the frame);
    - no data sent to hosts that are not in `network`, and nothing sent that the user did not choose.
 4. No dependencies pulled in at run time; anything bundled is readable or comes with its source.
 5. The repo has a licence, and the author is reachable (issues enabled).
