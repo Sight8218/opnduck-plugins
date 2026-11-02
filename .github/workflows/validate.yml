@@ -1,0 +1,16 @@
+name: validate-index
+on:
+  pull_request:
+  push:
+    branches: [main]
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      # On pull requests "verified": true is refused; on main (after the maintainer merged) it is allowed.
+      - run: node scripts/validate-index.mjs
+        env:
+          ALLOW_VERIFIED: ${{ github.event_name == 'push' && '1' || '' }}
